@@ -1,0 +1,14 @@
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.AssemblyInfoInputs.cache
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.AssemblyInfo.cs
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.csproj.CoreCompileInputs.cache
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\bin\Debug\net8.0\TPRoguelike.exe
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\bin\Debug\net8.0\TPRoguelike.deps.json
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\bin\Debug\net8.0\TPRoguelike.runtimeconfig.json
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\bin\Debug\net8.0\TPRoguelike.dll
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\bin\Debug\net8.0\TPRoguelike.pdb
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.dll
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\refint\TPRoguelike.dll
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.pdb
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\TPRoguelike.genruntimeconfig.cache
+C:\Users\noahm\Documents\Ynov\C#\TP\TPRoguelike\TPRoguelike\obj\Debug\net8.0\ref\TPRoguelike.dll
