@@ -39,12 +39,12 @@ namespace CharacterClass
     class Archer : Character
     {
 
-        public Archer(string name, int money) : base(name, money)
+        public Archer(string name, int money, int hP, int dEF, int aD, int critChance) : base(name, money)
         {
-            HP = 80;        
-            DEF = 5;       
-            AD = 25;       
-            CritChance = 30;
+            HP = hP;
+            DEF = dEF;
+            AD = aD;
+            CritChance = critChance;
         }
         
     }
@@ -52,12 +52,12 @@ namespace CharacterClass
     class Chevalier : Character
     {
 
-        public Chevalier(string name, int money) : base(name, money)
+        public Chevalier(string name, int money, int hP, int dEF, int aD, int critChance) : base(name, money)
         {
-            HP = 150;
-            DEF = 15;
-            AD = 15;
-            CritChance = 10;
+            HP = hP;
+            DEF = dEF;
+            AD = aD;
+            CritChance = critChance;
         }
     }
 }
