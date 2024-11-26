@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TPRoguelike")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbeb5668c55d33b2e1ddfcd26a498b84beba5b6c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d0510299feb59da21fd477da658f779671c66c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("TPRoguelike")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TPRoguelike")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\noahm\\Documents\\Ynov\\C#\\TP\\TPRoguelike\\TPRoguelike\\TPRoguelike.csproj": {}
+    "C:\\Users\\along\\Documents\\GitHub\\RogueLike-C-sharp\\TPRoguelike\\TPRoguelike.csproj": {}
   },
   "projects": {
-    "C:\\Users\\noahm\\Documents\\Ynov\\C#\\TP\\TPRoguelike\\TPRoguelike\\TPRoguelike.csproj": {
+    "C:\\Users\\along\\Documents\\GitHub\\RogueLike-C-sharp\\TPRoguelike\\TPRoguelike.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\noahm\\Documents\\Ynov\\C#\\TP\\TPRoguelike\\TPRoguelike\\TPRoguelike.csproj",
+        "projectUniqueName": "C:\\Users\\along\\Documents\\GitHub\\RogueLike-C-sharp\\TPRoguelike\\TPRoguelike.csproj",
         "projectName": "TPRoguelike",
-        "projectPath": "C:\\Users\\noahm\\Documents\\Ynov\\C#\\TP\\TPRoguelike\\TPRoguelike\\TPRoguelike.csproj",
-        "packagesPath": "C:\\Users\\noahm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\noahm\\Documents\\Ynov\\C#\\TP\\TPRoguelike\\TPRoguelike\\obj\\",
+        "projectPath": "C:\\Users\\along\\Documents\\GitHub\\RogueLike-C-sharp\\TPRoguelike\\TPRoguelike.csproj",
+        "packagesPath": "C:\\Users\\along\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\along\\Documents\\GitHub\\RogueLike-C-sharp\\TPRoguelike\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\noahm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\along\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -42,9 +42,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
