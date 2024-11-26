@@ -6,18 +6,7 @@ class Program
 {
     static void Main()
     {
-        // Définir la position du curseur (colonne 10, ligne 5)
-        Console.SetCursorPosition(10, 5);
-
-        // Afficher un caractère à cette position
-        Console.Write("A");
-
-        // Vous pouvez également écrire plusieurs caractères, ou une chaîne entière
-        Console.SetCursorPosition(12, 5);
-        Console.Write("B");
-
-        // Attendre une touche pour fermer
-        Console.ReadKey();
+        
     }
 
     static Character GetCharacter(string id)
