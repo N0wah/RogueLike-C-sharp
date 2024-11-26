@@ -8,11 +8,24 @@ class Character
     public int DEF { get; protected set; }
     public int AD { get; protected set; }
     public int CritChance { get; protected set; }
+    public Arme _Arme { get; protected set; }
 
     public Character(string name, int money)
     {
         Name = name;
         Money = money;
+        _Arme = new Poing();
+    }
+
+    public void EquipWeapon(Arme weapon)
+    {
+        _Arme = weapon;
+        Console.WriteLine($"{Name} a équipé l'arme : {weapon.NomArme}");
+    }
+
+    public void Attack()
+    {
+        _Arme.Attaque();
     }
 
     public virtual void SetHp(int hp)

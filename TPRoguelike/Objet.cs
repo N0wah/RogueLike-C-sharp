@@ -13,6 +13,7 @@ class Objet
 
     public virtual void Use(int id)
     {
+
         if (id == 3)
         {
             _Character.SetHp(_Character.HP + 20);
@@ -85,7 +86,7 @@ namespace _Objet
 
     class Potion : Objet
     {
-        private int Soin = 21;
+        private int Soin = 20;
         private string Name = "Potion";
 
         public Potion(string name, Character character) : base(name, character)

@@ -6,14 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        
-        bool game = true;
-        while (game)
-        {
-            
-            game = false;
-            
-        }
-        
+
     }
 }
