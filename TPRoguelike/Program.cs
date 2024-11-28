@@ -112,17 +112,9 @@ class Program
         return null;
     }
 
-    static Ennemie GetEnnemie(string id)
+    public static Ennemie GetEnnemie(string id)
     {
         string connectionString = "server=localhost;database=dbrogue;user=root;password=";
-
-        // Dictionnaire pour mapper les IDs aux types d'ennemis
-        var ennemiFactories = new Dictionary<string, Func<string, int, int, int, int, Ennemie>>
-    {
-        { "1", (name, hp, def, ad, valeur) => new Gobelin(name,"Gobelin", hp, def, ad, valeur) },
-            { "2", (name, hp, def, ad, valeur) => new Orc(name,"Orc", hp, def, ad, valeur) },
-            { "3", (name, hp, def, ad, valeur) => new Boss(name,"Boss", hp, def, ad, valeur) }
-    };
 
         using (var connection = new MySqlConnection(connectionString))
         {
@@ -131,30 +123,54 @@ class Program
                 connection.Open();
                 Console.WriteLine("Connexion réussie à la base de données.");
 
-                string query = "SELECT * FROM Ennemie WHERE Id = @Id";
-                using (var command = new MySqlCommand(query, connection))
+                var ennemiesMap = new Dictionary<string, Func<MySqlDataReader, Ennemie>>
+            {
+                { "1", reader => new Gobelin(
+                    reader.GetString("Name"),
+                    "Gobelin",
+                    reader.GetInt32("Health_Point"),
+                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Attack_Point"),
+                    reader.GetInt32("Gold_Value")
+                )},
+                { "2", reader => new Loup(
+                    reader.GetString("Name"),
+                    "Loup",
+                    reader.GetInt32("Health_Point"),
+                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Attack_Point"),
+                    reader.GetInt32("Gold_Value")
+                )},
+                { "3", reader => new Orc(
+                    reader.GetString("Name"),
+                    "Orc",
+                    reader.GetInt32("Health_Point"),
+                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Attack_Point"),
+                    reader.GetInt32("Gold_Value")
+                )},
+                { "4", reader => new Boss(
+                    reader.GetString("Name"),
+                    "Boss",
+                    reader.GetInt32("Health_Point"),
+                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Attack_Point"),
+                    reader.GetInt32("Gold_Value")
+                )}
+            };
+
+                if (ennemiesMap.ContainsKey(id))
                 {
-                    // Ajout du paramètre pour sécuriser la requête
-                    command.Parameters.AddWithValue("@Id", id);
+                    string query = $"SELECT * FROM `ennemy` WHERE Id = {id};";
 
-                    using (var reader = command.ExecuteReader())
+                    using (var command = new MySqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        using (var reader = command.ExecuteReader())
                         {
-                            string name = reader.GetString("Name");
-                            int hp = reader.GetInt32("Health_Point");
-                            int def = reader.GetInt32("Defense_Point");
-                            int ad = reader.GetInt32("Attack_Point");
-                            int valeur = reader.GetInt32("Gold_Value");
-
-                            // Vérification si l'ID correspond à un ennemi connu
-                            if (ennemiFactories.TryGetValue(id, out var factory))
+                            if (reader.Read())
                             {
-                                return factory(name, hp, def, ad, valeur);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Aucun ennemi correspondant trouvé pour cet ID.");
+                                Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                return ennemiesMap[id](reader);
                             }
                         }
                     }
@@ -165,7 +181,6 @@ class Program
                 Console.WriteLine("Erreur : " + ex.Message);
             }
         }
-
         return null;
     }
 
@@ -355,7 +370,7 @@ class Program
 
         // Créer un ennemi aléatoire ou choisir un ennemi spécifique
         Random random = new Random();
-        Ennemie ennemi = ChoisirEnnemie(random.Next(1, 5)); // Choisir un ennemi entre Gobelin, Loup, Orc, Boss
+        Ennemie ennemi = GetEnnemie(random.Next(1, 5).ToString()); // Choisir un ennemi entre Gobelin, Loup, Orc, Boss
 
         bool combatEnCours = true;
 
@@ -486,18 +501,6 @@ class Program
         return degatsSubis;
     }
 
-    // Méthode pour choisir un ennemi aléatoire
-    public static Ennemie ChoisirEnnemie(int choix)
-    {
-        switch (choix)
-        {
-            case 1: return GetEnnemie("1");
-            case 2: return GetEnnemie("2");
-            case 3: return GetEnnemie("3");
-            case 4: return GetEnnemie("4");
-            default: return GetEnnemie("1");
-        }
-    }
 }
 
 

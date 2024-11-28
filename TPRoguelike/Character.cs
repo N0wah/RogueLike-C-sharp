@@ -33,6 +33,11 @@ class Character
     {
         HP = hp;
     }
+
+    public virtual int GetHp()
+    {
+        return HP;
+    }
 }
 
 namespace CharacterClass
