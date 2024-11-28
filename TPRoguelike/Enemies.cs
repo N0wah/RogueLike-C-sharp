@@ -8,26 +8,32 @@
     public int CritChance { get; protected set; }
     public int Valeur { get; protected set; }
 
-    public Ennemie(string name, string classe, int hp, int def, int ad, int critChance, int valeur)
+    public Ennemie(string name, string classe)
     {
         Name = name;
         Classe = classe;
-        HP = hp;
-        DEF = def;
-        AD = ad;
-        CritChance = critChance;
-        Valeur = valeur;
     }
 
     public virtual void Attaque()
     {
         Console.WriteLine($"{Name} attaque avec {AD} points de dégâts !");
     }
+    public virtual int GetHp() { return HP; }
+    public virtual void SetHp(int hp)
+    {
+        HP = hp;
+    }
 }
 
 class Gobelin : Ennemie
 {
-    public Gobelin() : base("Gobelin", "Gobelin", 50, 10, 15, 5, 10) { }
+    public Gobelin(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
+    {
+        HP = hp;
+        DEF = def;
+        AD = ad;
+        Valeur = valeur;
+    }
 
     public override void Attaque()
     {
@@ -37,7 +43,13 @@ class Gobelin : Ennemie
 
 class Loup : Ennemie
 {
-    public Loup() : base("Loup", "Loup", 70, 8, 20, 10, 15) { }
+    public Loup(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
+    {
+        HP = hp;
+        DEF = def;
+        AD = ad;
+        Valeur = valeur;
+    }
 
     public override void Attaque()
     {
@@ -47,7 +59,13 @@ class Loup : Ennemie
 
 class Orc : Ennemie
 {
-    public Orc() : base("Orc", "Orc", 100, 20, 25, 5, 20) { }
+    public Orc(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
+    {
+        HP = hp;
+        DEF = def;
+        AD = ad;
+        Valeur = valeur;
+    }
 
     public override void Attaque()
     {
@@ -57,7 +75,13 @@ class Orc : Ennemie
 
 class Boss : Ennemie
 {
-    public Boss(string name) : base(name, "Boss", 200, 40, 50, 20, 100) { }
+    public Boss(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
+    {
+        HP = hp;
+        DEF = def;
+        AD = ad;
+        Valeur = valeur;
+    }
 
     public override void Attaque()
     {
