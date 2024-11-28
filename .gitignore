@@ -1,9 +1,9 @@
 .vs
 .bin/Debug
 .obj/Debug
-/TPRoguelike/bin
-/TPRoguelike/obj
-/TPRoguelike/obj
+/TPRoguelike/bin/*
+/TPRoguelike/obj/*
+/TPRoguelike/obj/*
 TPRoguelike/obj/Debug/net8.0/TPRoguelike.AssemblyInfo.cs
 TPRoguelike/obj/Debug/net8.0/TPRoguelike.AssemblyInfoInputs.cache
 TPRoguelike/obj/Debug/net8.0/TPRoguelike.sourcelink.json
