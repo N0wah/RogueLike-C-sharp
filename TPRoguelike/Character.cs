@@ -28,6 +28,7 @@ class Character
         _Arme.Attaque();
     }
 
+    public virtual int GetHp() { return HP; }
     public virtual void SetHp(int hp)
     {
         HP = hp;

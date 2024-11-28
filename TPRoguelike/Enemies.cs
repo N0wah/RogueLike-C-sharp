@@ -23,6 +23,11 @@
     {
         Console.WriteLine($"{Name} attaque avec {AD} points de dégâts !");
     }
+    public virtual int GetHp() { return HP; }
+    public virtual void SetHp(int hp)
+    {
+        HP = hp;
+    }
 }
 
 class Gobelin : Ennemie
