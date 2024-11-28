@@ -27,11 +27,7 @@
 
 class Gobelin : Ennemie
 {
-<<<<<<< HEAD
-    public Gobelin(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe) 
-=======
     public Gobelin(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
->>>>>>> Fetch-base-de-donnée
     {
         HP = hp;
         DEF = def;
@@ -47,11 +43,7 @@ class Gobelin : Ennemie
 
 class Loup : Ennemie
 {
-<<<<<<< HEAD
-    public Loup(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe) 
-=======
     public Loup(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
->>>>>>> Fetch-base-de-donnée
     {
         HP = hp;
         DEF = def;
@@ -67,11 +59,7 @@ class Loup : Ennemie
 
 class Orc : Ennemie
 {
-<<<<<<< HEAD
-    public Orc(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe) 
-=======
     public Orc(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
->>>>>>> Fetch-base-de-donnée
     {
         HP = hp;
         DEF = def;
@@ -87,11 +75,7 @@ class Orc : Ennemie
 
 class Boss : Ennemie
 {
-<<<<<<< HEAD
-    public Boss(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe) 
-=======
     public Boss(string name, string classe, int hp, int def, int ad, int valeur) : base(name, classe)
->>>>>>> Fetch-base-de-donnée
     {
         HP = hp;
         DEF = def;
