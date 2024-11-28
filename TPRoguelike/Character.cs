@@ -47,7 +47,6 @@ namespace CharacterClass
             AD = aD;
             CritChance = critChance;
         }
-        
     }
 
     class Chevalier : Character

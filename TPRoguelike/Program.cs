@@ -5,9 +5,12 @@ using System.Threading; // Nécessaire pour avoir un delai a l'affichage du text
 
 class Program
 {
-    static void Main()
+    public static void Main()
     {
-        
+        LancerJeu();
+        ExplicationJeu();
+        Character joueur = SelectionnerPersonnage();
+        Menu(joueur);
     }
 
     static Character GetCharacter(string id)
@@ -109,11 +112,63 @@ class Program
         return null;
     }
 
-        LancerJeu();
-        ExplicationJeu();
-        Character joueur = SelectionnerPersonnage();
-        Menu(joueur);
+    static Ennemie GetEnnemie(string id)
+    {
+        string connectionString = "server=localhost;database=dbrogue;user=root;password=";
+
+        // Dictionnaire pour mapper les IDs aux types d'ennemis
+        var ennemiFactories = new Dictionary<string, Func<string, int, int, int, int, Ennemie>>
+    {
+        { "1", (name, hp, def, ad, valeur) => new Gobelin(name,"Gobelin", hp, def, ad, valeur) },
+            { "2", (name, hp, def, ad, valeur) => new Orc(name,"Orc", hp, def, ad, valeur) },
+            { "3", (name, hp, def, ad, valeur) => new Boss(name,"Boss", hp, def, ad, valeur) }
+    };
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
+                Console.WriteLine("Connexion réussie à la base de données.");
+
+                string query = "SELECT * FROM Ennemie WHERE Id = @Id";
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    // Ajout du paramètre pour sécuriser la requête
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string name = reader.GetString("Name");
+                            int hp = reader.GetInt32("Health_Point");
+                            int def = reader.GetInt32("Defense_Point");
+                            int ad = reader.GetInt32("Attack_Point");
+                            int valeur = reader.GetInt32("Gold_Value");
+
+                            // Vérification si l'ID correspond à un ennemi connu
+                            if (ennemiFactories.TryGetValue(id, out var factory))
+                            {
+                                return factory(name, hp, def, ad, valeur);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Aucun ennemi correspondant trouvé pour cet ID.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur : " + ex.Message);
+            }
+        }
+
+        return null;
     }
+
 
     public static void LancerJeu()
     {
@@ -146,12 +201,13 @@ class Program
         // Attendre une touche du joueur pour revenir
         Console.ReadKey(true);
         Console.Clear();
+    }
 
 
     // Méthode pour afficher le texte progressivement
     public static void TEXTE(string texte, int delai = 50)
     {
-        foreach(char caractere in texte)
+        foreach (char caractere in texte)
         {
             if (Console.KeyAvailable) // Si une touche est pressée
             {
@@ -267,11 +323,11 @@ class Program
 
         if (choix == 1)
         {
-            personnage = new Archer("Archer", 100); // Exemple de stats pour Archer
+            personnage = GetCharacter("1"); // Exemple de stats pour Archer
         }
         else if (choix == 2)
         {
-            personnage = new Chevalier("Chevalier", 100); // Exemple de stats pour Chevalier
+            personnage = GetCharacter("2"); // Exemple de stats pour Chevalier
         }
 
         // Afficher les stats initiales du personnage choisi
@@ -382,8 +438,8 @@ class Program
                 TEXTE($"{ennemi.Name} attaque et vous inflige {degatsEnnemi} points de dégâts.\n");
             }
 
-                // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
-                if (joueur.HP <= 0)
+            // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
+            if (joueur.HP <= 0)
             {
                 Console.Clear();
                 TEXTE("Vous avez perdu le combat. Game Over !\n");
@@ -435,17 +491,15 @@ class Program
     {
         switch (choix)
         {
-            case 1: return new Gobelin();
-            case 2: return new Loup();
-            case 3: return new Orc();
-            case 4: return new Boss("Boss Final");
-            default: return new Gobelin();
+            case 1: return GetEnnemie("1");
+            case 2: return GetEnnemie("2");
+            case 3: return GetEnnemie("3");
+            case 4: return GetEnnemie("4");
+            default: return GetEnnemie("1");
         }
     }
-
-    
-
 }
+
 
 
 
