@@ -3,6 +3,7 @@ using TPCSharp;
 using MySql.Data.MySqlClient;
 using System.Threading; // Nécessaire pour avoir un delai a l'affichage du texte
 using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 
 class Program
 {
@@ -261,7 +262,6 @@ class Program
     {
         int choix = 0;
         
-
         while (true)
         {
 
@@ -291,9 +291,7 @@ class Program
                 else if (choix == 2)
                 {
                     Console.Clear();
-                    Console.WriteLine("Vous êtes dans le Shop !");
-                    Console.WriteLine("\nAppuyez sur une touche pour revenir au menu principal...");
-                    Console.ReadKey(true);
+                    Shop(Personnage);
                 }
                 else if (choix == 3)
                 {
@@ -320,6 +318,65 @@ class Program
             }
         }
     } //Menu de Joueur
+
+    public static void Shop(Character joueur)
+    {
+        bool shop = true;
+        int choix = 0;
+        while (shop)
+        {
+            Console.Clear();
+            Console.WriteLine("**************************");
+            Console.WriteLine("*          Shop          *");
+            Console.WriteLine("**************************\n");
+
+            Console.WriteLine("Choississez l'arme que vous voulez prendre : \n");
+
+            Armes arme1 = GetWeapon("2");
+            Armes arme2 = GetWeapon("3");
+            Armes arme3 = GetWeapon("4");
+            Armes arme4 = GetWeapon("5");
+            joueur.Money = 250;
+
+            Console.WriteLine($"1-{arme1.NomArme}({arme1.GetValue()}$) | 2-{arme2.NomArme}({arme2.GetValue()}$) " +
+                $"| 3-{arme3.NomArme}({arme3.GetValue()}$) | 4-{arme4.NomArme}({arme4.GetValue()}$)");
+            Console.WriteLine($"Argent : {joueur.Money}");
+            Console.WriteLine("5-Quittez le shop");
+            
+
+            try
+            {
+                string input = Console.ReadLine();
+                choix = int.Parse(input);
+                if (choix == 1 && joueur.Money >= arme1.GetValue()) 
+                { joueur.EquipWeapon(arme1); Console.WriteLine($"Vous avez équippée l'arme {arme1.NomArme}"); joueur.Money -= arme1.GetValue(); shop = false; Console.ReadKey(true); }
+                if (choix == 2 && joueur.Money >= arme1.GetValue()) 
+                { joueur.EquipWeapon(arme2); Console.WriteLine($"Vous avez équippée l'arme {arme2.NomArme}"); joueur.Money -= arme2.GetValue(); shop = false; Console.ReadKey(true); }
+                if (choix == 3 && joueur.Money >= arme1.GetValue()) 
+                { joueur.EquipWeapon(arme3); Console.WriteLine($"Vous avez équippée l'arme {arme3.NomArme}"); joueur.Money -= arme3.GetValue(); shop = false; Console.ReadKey(true); }
+                if (choix == 4 && joueur.Money >= arme1.GetValue()) 
+                { joueur.EquipWeapon(arme4); Console.WriteLine($"Vous avez équippée l'arme {arme4.NomArme}"); joueur.Money -= arme4.GetValue(); shop = false; Console.ReadKey(true); }
+                if (choix == 5) { shop = false; }
+                if (shop == true && joueur.Money < arme1.GetValue() && joueur.Money < arme2.GetValue() && joueur.Money < arme3.GetValue() && joueur.Money < arme4.GetValue())
+                {
+                    Console.WriteLine("\nVous n'avez pas assez d'argent / Entrez un chiffre entre 1 et 4");
+                    Console.ReadKey(true);
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nErreur : Vous devez entrer un nombre valide (1, 2, 3 ou 4).");
+                Console.ReadKey(true);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"\nUne erreur inattendue s'est produite : {ex.Message}");
+                Console.ReadKey(true);
+            }
+        }
+
+    }
 
     public static void Combat(Character joueur)
     {
