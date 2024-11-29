@@ -6,9 +6,9 @@ class Program
 {
     public static void Main()
     {
-        StartingGame();
-        Explication();
-        MenuGame(//mettre Character//);
+        //StartingGame();
+        //  Explication();
+        // MenuGame(//mettre Character//);
     }
 
     public static void StartingGame()
@@ -45,9 +45,11 @@ class Program
     public static void MenuGame(Character Personnage)
     {
         int choix = 0;
+        
 
         while (true)
         {
+
             Console.Clear();
             Console.WriteLine("**************************");
             Console.WriteLine("*          Menu          *");
@@ -64,9 +66,10 @@ class Program
                 choix = int.Parse(input);
                 if (choix == 1)
                 {
+                    Character ennemie = RandomEnnemi();
                     Console.Clear();
                     Console.WriteLine("Vous avez choisi de commencer le combat !");
-                    Combat(Personnage, Ennemie);
+                    Combat(Personnage, ennemie);
                     Console.WriteLine("\nAppuyez sur une touche pour continuer...");
                     Console.ReadKey(true);
                 }
@@ -109,19 +112,19 @@ class Program
         Console.WriteLine($"Le combat commence ! Vous êtes face à un ennemi !\n");
         // Afficher les statistiques du joueur
         Console.Clear();
-        Console.WriteLine($"HP du joueur : {joueur.HP}/{joueur.HP}\n");
-        Console.WriteLine($"Attaque : {joueur.AD}\n");
+        Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
+        Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
         // Console.WriteLine($"Défense : {joueur.DEF}\n");
 
         // Afficher les statistiques du ennemie
         Console.SetCursorPosition(25, 0);
-        Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.HP}/{ennemi.HP}\n");
+        Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
         Console.SetCursorPosition(25, 1);
-        Console.WriteLine($"Attaque : {ennemi.AD}\n");
+        Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
         //Console.SetCursorPosition(25, 2);
         //Console.WriteLine($"Défense : {ennemi.DEF}\n");
 
-        Augmentationstat(Charjoueur);
+        
 
         Console.WriteLine("Continu...");
         Console.ReadKey(true);
@@ -132,48 +135,45 @@ class Program
         while (combatEnCours)
         {
             Console.Clear();
-            Console.WriteLine($"HP du joueur : {joueur.HP}/{joueur.HP}\n");
-            Console.WriteLine($"Attaque : {joueur.AD}\n");
-            Console.WriteLine($"Défense : {joueur.DEF}\n");
+            Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
+            Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
 
             // Afficher les statistiques du ennemie
             Console.SetCursorPosition(25, 0);
-            Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.HP}/{ennemi.HP}\n");
+            Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
             Console.SetCursorPosition(25, 1);
-            Console.WriteLine($"Attaque : {ennemi.AD}\n");
-            Console.SetCursorPosition(25, 2);
-            Console.WriteLine($"Défense : {ennemi.DEF}\n");
+            Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
 
             Console.WriteLine("Continu...");
             Console.ReadKey(true);
 
-
+            Augmentationstat(joueur);
 
             //(Fonction) Joueur.Attaque(ennemie);
-            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.AttackDMG} points de dégâts !\n");
+            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
 
             //(Fonction) ennemie.Attaque(joueur);
-            Console.WriteLine($"L'ennemie vous attaque et vous inflige {joueur.AttackDMG} points de dégâts !\n");
+            Console.WriteLine($"L'ennemie vous attaque et vous inflige {ennemi.GetAttackDamage()} points de dégâts !\n");
 
             // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
-            if (joueur.HP <= 0)
+            if (joueur.Hp <= 0)
             {
 
                 Console.Clear();
                 Console.WriteLine("Vous avez perdu le combat. Game Over !\n");
-                joueur.resetHP();
+                joueur.ResetHp();
                 combatEnCours = false;
             }
 
             // Si le joueur a encore de la vie, continuer le combat
-            if (joueur.HP > 0)
+            if (joueur.Hp > 0)
             {
                 Console.WriteLine("Appuyez sur une touche pour continuer...");
                 Console.ReadKey(true);
             }
 
             // Si l'ennemi a perdu tous ses HP, il est vaincu
-            if (ennemi.HP <= 0)
+            if (ennemi.Hp <= 0)
             {
                 Console.Clear();
                 Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
@@ -183,12 +183,27 @@ class Program
         }
     } //Systeme de Combat
 
-    public int Augmentationstat(Joueur)
+    public static void Augmentationstat(Character joueur)
     {
-        int resultat = Dice6.Random();
+        Dice6 dice6 = new Dice6("");
+        int resultat = dice6.Random();
         int choix = 0;
+        Console.WriteLine("Appuyer pour lance le dé...");
+        Console.ReadKey(true);
+        Console.Clear();
+        Console.WriteLine("Lancement de .");
+        Console.WriteLine("Lancement de ..");
+        Console.WriteLine("Lancement de ...");
+        Console.WriteLine("Lancement de .");
+        Console.WriteLine("Lancement de ..");
+        Console.WriteLine("Lancement de ...");
+        Console.Clear();
+        AffichageDe(resultat);
+        Console.WriteLine($"Vous avez obtenu{resultat}!!!");
+        Console.WriteLine("Choississez la statistique que vous voulez augmenter");
         while (resultat != 0)
         {
+            
             try
             {
                 string input = Console.ReadLine();
@@ -196,13 +211,13 @@ class Program
                 choix = int.Parse(input);
                 if (choix == 1)
                 {
-                    Joueur.Attack += 1;
+                    joueur.SetAttackDamage(joueur.GetAttackDamage() += 1);
                     resultat -= 1;
                     Console.WriteLine($"Augmentation d'attaque de 1");
                 }
                 else if (choix == 2)
                 {
-                    Joueur.Hp += 1;
+                    joueur.Hp += 1;
                     resultat -= 1;
                     Console.WriteLine($"Augmentation de HP de 1");
                 }
@@ -224,12 +239,44 @@ class Program
                 Console.ReadKey(true);
             }
         }
+        ;
     }//Systeme Augmentation de stat
 
-    public static RandomEnnemi(Character Ennemie)
+    public static Character RandomEnnemi()
     {
         Random random = new Random();
-        Ennemie ennemi = GetEnnemie(random.Next(1, 3).ToString());
+        Character ennemi = GetEnnemie(random.Next(1, 3).ToString());
+
+        return ennemi;
     }//Recupérer ennemie random
 
+    public static void AffichageDe(int number)
+    {
+        if (number == 1) { 
+        Console.WriteLine("  .=***++++*+=++*++===+++++.\r\n *####**##########**#######:\r\n ##########################:\r\n #######################+##:\r\n #######################=##:\r\n ##########################:\r\n ##########=-+###########=#:\r\n #########+  :###########+#:\r\n ###########*#############*:\r\n #########################=:\r\n ##########################:\r\n ##########################:\r\n ########################=. \r\n");
+            //dé1
+        }
+        if (number == 2) { 
+            Console.WriteLine("  :+#*******+==+******+++++ \r\n.########################## \r\n:#########################* \r\n:####=-+##################- \r\n:###*  :*#################* \r\n:#####*##################*# \r\n:########################-# \r\n:########################+# \r\n:########################## \r\n:###############+--*####=## \r\n:###############=  =####+## \r\n:########################## \r\n.#######################*-  \r\n");
+        //dé2
+        }
+        if (number == 3) { 
+            Console.WriteLine("  .=********+==++++++++++++.\r\n +#########################.\r\n *########################*.\r\n *###############--+####+#=.\r\n *##############+  -####+##.\r\n *################*########.\r\n *#########-:=###########=#.\r\n *########*..-###########*#.\r\n *########################+.\r\n *###- :*###############=#=.\r\n *###-:-*###############*##.\r\n *#########################.\r\n");
+        //dé3
+        }
+        if (number == 4)
+        {
+            Console.WriteLine("  .=***++=+*+===++++===++++:\r\n *####***#########**#######-\r\n ##########################-\r\n ####+=+#########++*#######-\r\n ####   +#######=  :#######-\r\n #####**#########*+########-\r\n ########################=#-\r\n ########################+#-\r\n ##########################-\r\n ####=:=*#######*--+#######-\r\n ####. .*#######+  -#######-\r\n #################*########-\r\n ########################=: \r\n");
+            //dé4
+        }
+        if (number == 5) { 
+            Console.WriteLine("  -*#*+=-+********+--=***++.\r\n=################***#######:\r\n=#########################*:\r\n=###*==*########*=+*######=:\r\n=###-  -########:  -######*:\r\n=####**##########++########:\r\n=#########*==*###########=#:\r\n=#########-  -###########+#:\r\n=##########**##############:\r\n=###*==*########*=+*####*##:\r\n=###=  -########:  -####+*#:\r\n=####**##########*+########:\r\n=########################*- \r\n");
+        //dé5
+        }
+        if (number == 6) { 
+            Console.WriteLine("  :+****++************+++++.\r\n.#################**#######.\r\n.##########################.\r\n.####=-+########*==*####+##.\r\n.###*  .*#######-  =####+##.\r\n.#####*##########**########.\r\n.####--+########*==*#####=#.\r\n.###*. :*#######-  =#####*#.\r\n.#################*#######+.\r\n.###*-:=########+--*######=.\r\n.###*. :*#######=  =#######.\r\n.##########################.\r\n.#######################*-  \r\n");
+        //dé6
+        }
+
+    }
 }
