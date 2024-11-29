@@ -2,15 +2,15 @@
 using TPCSharp;
 using MySql.Data.MySqlClient;
 using System.Threading; // Nécessaire pour avoir un delai a l'affichage du texte
+using System.Reflection.PortableExecutable;
 
 class Program
 {
     public static void Main()
     {
-        LancerJeu();
-        ExplicationJeu();
-        Character joueur = SelectionnerPersonnage();
-        Menu(joueur);
+        //StartingGame();
+        //  Explication();
+        // MenuGame(//mettre Character//);
     }
 
     public static Armes GetWeapon(string id)
@@ -231,303 +231,54 @@ class Program
     {
 
         Console.Clear(); // Efface l'écran pour un lancement propre
+    public static void StartingGame()
+    {
+        Console.Clear();
         Console.WriteLine("***************************************");
         Console.WriteLine("* Bienvenue dans le Rogue-like CLI ! *");
         Console.WriteLine("***************************************");
-        TEXTE("\nDans ce jeu, vous choisirez une classe, combattrez des ennemis, et améliorerez vos statistiques.\n");
-        TEXTE("\nSeule la chance sera votre ami faite confiance à votre Karma!\n");
-        TEXTE("Préparez-vous à l'aventure et faites vos choix avec sagesse !\n");
+        Console.WriteLine("\nDans ce jeu, vous choisirez une classe, combattrez des ennemis, et améliorerez vos statistiques.\n");
+        Console.WriteLine("\nSeule la chance sera votre ami faite confiance à votre Karma!\n");
+        Console.WriteLine("Préparez-vous à l'aventure et faites vos choix avec sagesse !\n");
         Console.WriteLine("\nAppuyez sur une touche pour commencer...\n");
 
-        // Attendre une touche du joueur
-        Console.ReadKey(true); // true pour ne pas afficher la touche pressée dans le terminal
 
-        Console.Clear(); // Efface l'écran avant de continuer vers le jeu
+        Console.ReadKey(true);
+
+        Console.Clear();
         Console.WriteLine("Place à L'explication");
-    }
+    } //lancement de Jeu
 
-    public static void ExplicationJeu()
+    public static void Explication()
     {
-        Console.Clear(); // Efface l'écran pour une lecture propre
+        Console.Clear();
         Console.WriteLine("***************************************");
         Console.WriteLine("*          Mécaniques du jeu          *");
         Console.WriteLine("***************************************\n");
-        TEXTE("1. **Classes :**\n- **Archer :** Attaque à distance avec des arcs ou arbalètes.\n- **Chevalier :** Combattant au corps à corps avec des dagues ou épées.\n\n2. **Statistiques :**\n- **HP :** Points de vie. Si vous tombez à 0, vous mourrez.\n- **Attaque :** Les dégâts que vous infligez à l'ennemi.\n- **Défense :** Réduit les dégâts subis.\n- **Chance de critique :** Probabilité de doubler vos dégâts lors d’une attaque.\n\n3. **Progression :**\n- Lancez 2 dés pour obtenir des points à attribuer à vos statistiques.\n- Gagnez de l’argent en combattant des ennemis (loup, orc, gobelin, etc.).\n- Utilisez l’argent pour acheter des armes et équipements afin d'augmenter vos statistique de combat.\n\n4. **Combat :**\n- Chaque tour, vous et l’ennemi attaquez à tour de rôle.\n- Vous aurez sur votre interface les statitisque de votre ennemie ainsi que le votre\n\n5. **Mort :**\n- Si vous perdez tous vos HP, vous revenez au menu principal.\n- Utilisez votre argent accumulé pour vous améliorer avant de repartir.\n\n6. **Objectif :**\n- Survivez aussi longtemps que possible.\n- Battez des ennemis toujours plus forts et améliorez votre personnage.\n");
+        Console.WriteLine("1. **Classes :**\n- **Archer :** Attaque à distance avec des arcs ou arbalètes.\n- **Chevalier :** Combattant au corps à corps avec des dagues ou épées.\n\n2. **Statistiques :**\n- **HP :** Points de vie. Si vous tombez à 0, vous mourrez.\n- **Attaque :** Les dégâts que vous infligez à l'ennemi.\n- **Défense :** Réduit les dégâts subis.\n- **Chance de critique :** Probabilité de doubler vos dégâts lors d’une attaque.\n\n3. **Progression :**\n- Lancez 2 dés pour obtenir des points à attribuer à vos statistiques.\n- Gagnez de l’argent en combattant des ennemis (loup, orc, gobelin, etc.).\n- Utilisez l’argent pour acheter des armes et équipements afin d'augmenter vos statistique de combat.\n\n4. **Combat :**\n- Chaque tour, vous et l’ennemi attaquez à tour de rôle.\n- Vous aurez sur votre interface les statitisque de votre ennemie ainsi que le votre\n\n5. **Mort :**\n- Si vous perdez tous vos HP, vous revenez au menu principal.\n- Utilisez votre argent accumulé pour vous améliorer avant de repartir.\n\n6. **Objectif :**\n- Survivez aussi longtemps que possible.\n- Battez des ennemis toujours plus forts et améliorez votre personnage.\n");
         Console.WriteLine("\nAppuyez sur une touche pour commencer l'aventure !\n");
 
-        // Attendre une touche du joueur pour revenir
         Console.ReadKey(true);
         Console.Clear();
-    }
+    } //Explication de Jeu
 
-
-    // Méthode pour afficher le texte progressivement
-    public static void TEXTE(string texte, int delai = 50)
-    {
-        foreach (char caractere in texte)
-        {
-            if (Console.KeyAvailable) // Si une touche est pressée
-            {
-                Console.Write(texte.Substring(texte.IndexOf(caractere))); // Affiche le reste du texte
-                Console.ReadKey(true); // Consomme la touche pressée
-                break;
-            }
-            Console.Write(caractere);
-            Thread.Sleep(delai); // Délai entre chaque caractère
-        }
-    }
-
-    public static void Menu(Character Personnage)
+    public static void MenuGame(Character Personnage)
     {
         int choix = 0;
+        
 
         while (true)
         {
-            Console.Clear(); // Efface l'écran pour une lecture propre
+
+            Console.Clear();
             Console.WriteLine("**************************");
             Console.WriteLine("*          Menu          *");
             Console.WriteLine("**************************\n");
 
-            TEXTE("- **1. Commencer le combat\n- **2. Shop\n- **3. Quitter le jeu\n");
+            Console.WriteLine("- **1. Commencer le combat\n- **2. Shop\n- **3. Quitter le jeu\n");
 
             Console.WriteLine("\nChoisissez une option (1-3) : ");
 
-            try
-            {
-                string input = Console.ReadLine();  // Attente de l'entrée de l'utilisateur
-
-                // Tenter de convertir l'entrée en un entier
-                choix = int.Parse(input);
-
-                // Vérifier si l'option est valide
-                if (choix == 1)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Vous avez choisi de commencer le combat !");
-                    Combat(Personnage);
-                    // Par exemple, tu peux appeler une fonction de combat
-                    Console.WriteLine("\nAppuyez sur une touche pour continuer...");
-                    Console.ReadKey(true);
-                }
-                else if (choix == 2)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Vous êtes dans le Shop !");
-                    // Ajouter ici la logique du shop
-                    // Par exemple, gérer l'achat d'objets
-                    Console.WriteLine("\nAppuyez sur une touche pour revenir au menu principal...");
-                    Console.ReadKey(true);
-                }
-                else if (choix == 3)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Merci d'avoir joué ! À bientôt !");
-                    Environment.Exit(0);  // Quitte le jeu
-                }
-                else
-                {
-                    Console.WriteLine("\nOption invalide. Veuillez entrer un chiffre entre 1 et 3.");
-                    Console.ReadKey(true);  // Attente d'une touche pour continuer
-                }
-            }
-            catch (FormatException)
-            {
-                // Gestion de l'erreur si l'utilisateur entre un caractère non numérique
-                Console.WriteLine("\nErreur : Vous devez entrer un nombre valide (1, 2 ou 3).");
-                Console.ReadKey(true);  // Attente d'une touche pour continuer
-            }
-            catch (Exception ex)
-            {
-                // Gestion de toute autre exception non prévue
-                Console.WriteLine($"\nUne erreur inattendue s'est produite : {ex.Message}");
-                Console.ReadKey(true);  // Attente d'une touche pour continuer
-            }
-        }
-    }
-
-
-    // Méthode pour choisir le personnage entre Archer et Chevalier
-    public static Character SelectionnerPersonnage()
-    {
-        Console.Clear();
-        TEXTE("Sélectionnez votre personnage :\n1. Archer (Attaque à distance)\n2. Chevalier (Combat au corps à corps)\n");
-
-        int choix = 0;
-        bool valide = false;
-
-        while (!valide)
-        {
-            try
-            {
-                Console.Write("\nFaites votre choix (1 ou 2) : ");
-                choix = int.Parse(Console.ReadLine());
-                if (choix == 1 || choix == 2)
-                {
-                    valide = true;
-                }
-                else
-                {
-                    Console.WriteLine("Choix invalide. Veuillez entrer 1 pour Archer ou 2 pour Chevalier.");
-                }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Veuillez entrer un numéro valide.");
-            }
-        }
-
-        Character personnage = null;
-
-        if (choix == 1)
-        {
-            personnage = GetCharacter("1"); // Exemple de stats pour Archer
-        }
-        else if (choix == 2)
-        {
-            personnage = GetCharacter("2"); // Exemple de stats pour Chevalier
-        }
-
-        // Afficher les stats initiales du personnage choisi
-        Console.Clear();
-        TEXTE($"Vous avez choisi : {personnage.Name}\n");
-        TEXTE($"HP : {personnage.HP}\n");
-        TEXTE($"Défense : {personnage.DEF}\n");
-        TEXTE($"Attaque : {personnage.AD}\n");
-        TEXTE($"Chance de critique : {personnage.CritChance}%\n");
-        TEXTE($"Argent : {personnage.Money} pièces\n");
-        Console.WriteLine("\nAppuyer pour continuer...");
-        Console.ReadKey(true);
-        Console.Clear();
-
-        return personnage;
-    }
-
-    // Méthode pour gérer l'attaque de l'ennemi
-
-
-    public static void Combat(Character joueur)
-    {
-        Console.Clear();
-        TEXTE($"Le combat commence ! Vous êtes face à un ennemi !\n");
-
-        // Créer un ennemi aléatoire ou choisir un ennemi spécifique
-        Random random = new Random();
-        Ennemie ennemi = GetEnnemie(random.Next(1, 5).ToString()); // Choisir un ennemi entre Gobelin, Loup, Orc, Boss
-
-        bool combatEnCours = true;
-
-        // Boucle de combat
-        while (combatEnCours)
-        {
-            // Afficher les statistiques du joueur
-            Console.Clear();
-            TEXTE($"HP du joueur : {joueur.HP}/{joueur.HP}\n");
-            TEXTE($"Attaque : {joueur.AD}\n");
-            TEXTE($"Défense : {joueur.DEF}\n");
-
-            Console.SetCursorPosition(25, 0);
-            TEXTE($"HP de l'ennemi ({ennemi.Name}) : {ennemi.HP}/{ennemi.HP}\n");
-            Console.SetCursorPosition(25, 1);
-            TEXTE($"Attaque : {ennemi.AD}\n");
-            Console.SetCursorPosition(25, 2);
-            TEXTE($"Défense : {ennemi.DEF}\n");
-
-
-            // Menu des actions du joueur
-            Console.SetCursorPosition(13, 20);
-            Console.WriteLine("Que voulez-vous faire ?");
-            Console.SetCursorPosition(13, 21);
-            Console.WriteLine("1. Attaquer");
-            Console.SetCursorPosition(13, 22);
-            Console.WriteLine("2. Défendre");
-            Console.SetCursorPosition(13, 23);
-            Console.WriteLine("3. Fuir");
-
-            int choixAction = 0;
-
-            try
-            {
-                string input = Console.ReadLine();  // Lecture du choix de l'action
-                choixAction = int.Parse(input);
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Veuillez entrer un nombre valide.");
-                continue;
-            }
-
-            int degatsJoueur = 0;
-
-            // Déterminer l'action du joueur
-            if (choixAction == 1)
-            {
-                degatsJoueur = joueur.AD + random.Next(0, 10);  // Attaque avec une petite variation aléatoire
-                TEXTE($"Vous attaquez {ennemi.Name} et infligez {degatsJoueur} points de dégâts !\n");
-
-                int ennemiPV = ennemi.GetHp();
-                ennemi.SetHp(ennemiPV - degatsJoueur);
-                if (ennemi.HP < 0) ennemi.SetHp(0);  // S'assurer que les HP de l'ennemi ne sont pas négatifs
-            }
-            else if (choixAction == 2)
-            {
-                TEXTE("Vous vous défendez. Vous recevrez moins de dégâts si l'ennemi attaque.\n");
-            }
-            else if (choixAction == 3)
-            {
-                TEXTE("Vous avez choisi de fuir. Le combat est terminé.\n");
-                combatEnCours = false;
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Action invalide. Veuillez choisir 1, 2 ou 3.");
-                continue;
-            }
-
-            if (ennemi.HP > 0)
-            {
-                // Calcul des dégâts de l'ennemi
-                int degatsEnnemi = EnnemiAttaque(ennemi, joueur, random);
-
-                // Appliquer les dégâts au joueur
-                int joueurHP = joueur.GetHp();
-                joueur.SetHp(joueurHP -= degatsEnnemi);
-                TEXTE($"{ennemi.Name} attaque et vous inflige {degatsEnnemi} points de dégâts.\n");
-            }
-
-            // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
-            if (joueur.HP <= 0)
-            {
-                Console.Clear();
-                TEXTE("Vous avez perdu le combat. Game Over !\n");
-                combatEnCours = false;
-            }
-
-            // Si le joueur a encore de la vie, continuer le combat
-            if (joueur.HP > 0)
-            {
-                Console.WriteLine("Appuyez sur une touche pour continuer...");
-                Console.ReadKey(true);
-            }
-
-            // Si l'ennemi a perdu tous ses HP, il est vaincu
-            if (ennemi.HP <= 0)
-            {
-                Console.Clear();
-                TEXTE($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
-                combatEnCours = false;
-            }
-        }
-    }
-
-    public int Augmentationstat(Character joueur)
-    {
-        int degats = ennemi.AD + random.Next(0, 10);  // Attaque de base avec variation
-        bool critique = random.Next(0, 100) < ennemi.CritChance;  // Chance de critique de l'ennemi
-
-        // Si critique, doubler les dégâts
-        if (critique)
-        {
             try
             {
                 string input = Console.ReadLine();
@@ -535,13 +286,158 @@ class Program
                 choix = int.Parse(input);
                 if (choix == 1)
                 {
-                    joueur. += 1;
+                    Character ennemie = RandomEnnemi();
+                    Console.Clear();
+                    Console.WriteLine("Vous avez choisi de commencer le combat !");
+                    Combat(Personnage, ennemie);
+                    Console.WriteLine("\nAppuyez sur une touche pour continuer...");
+                    Console.ReadKey(true);
+                }
+                else if (choix == 2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Vous êtes dans le Shop !");
+                    Console.WriteLine("\nAppuyez sur une touche pour revenir au menu principal...");
+                    Console.ReadKey(true);
+                }
+                else if (choix == 3)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Merci d'avoir joué ! À bientôt !");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine("\nOption invalide. Veuillez entrer un chiffre entre 1 et 3.");
+                    Console.ReadKey(true);
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nErreur : Vous devez entrer un nombre valide (1, 2 ou 3).");
+                Console.ReadKey(true);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"\nUne erreur inattendue s'est produite : {ex.Message}");
+                Console.ReadKey(true);
+            }
+        }
+    } //Menu de Joueur
+
+    public static void Combat(Character joueur, Character ennemi)
+    {
+        Console.Clear();
+        Console.WriteLine($"Le combat commence ! Vous êtes face à un ennemi !\n");
+        // Afficher les statistiques du joueur
+        Console.Clear();
+        Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
+        Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
+        // Console.WriteLine($"Défense : {joueur.DEF}\n");
+
+        // Afficher les statistiques du ennemie
+        Console.SetCursorPosition(25, 0);
+        Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
+        Console.SetCursorPosition(25, 1);
+        Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
+        //Console.SetCursorPosition(25, 2);
+        //Console.WriteLine($"Défense : {ennemi.DEF}\n");
+
+        
+
+        Console.WriteLine("Continu...");
+        Console.ReadKey(true);
+
+        bool combatEnCours = true; //Afin de faire une boucle pour le jeu
+
+        // Boucle de combat
+        while (combatEnCours)
+        {
+            Console.Clear();
+            Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
+            Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
+
+            // Afficher les statistiques du ennemie
+            Console.SetCursorPosition(25, 0);
+            Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
+            Console.SetCursorPosition(25, 1);
+            Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
+
+            Console.WriteLine("Continu...");
+            Console.ReadKey(true);
+
+            Augmentationstat(joueur);
+
+            //(Fonction) Joueur.Attaque(ennemie);
+            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
+
+            //(Fonction) ennemie.Attaque(joueur);
+            Console.WriteLine($"L'ennemie vous attaque et vous inflige {ennemi.GetAttackDamage()} points de dégâts !\n");
+
+            // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
+            if (joueur.Hp <= 0)
+            {
+
+                Console.Clear();
+                Console.WriteLine("Vous avez perdu le combat. Game Over !\n");
+                joueur.ResetHp();
+                combatEnCours = false;
+            }
+
+            // Si le joueur a encore de la vie, continuer le combat
+            if (joueur.Hp > 0)
+            {
+                Console.WriteLine("Appuyez sur une touche pour continuer...");
+                Console.ReadKey(true);
+            }
+
+            // Si l'ennemi a perdu tous ses HP, il est vaincu
+            if (ennemi.Hp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                combatEnCours = false;
+                Combat(joueur, ennemi);
+            }
+        }
+    } //Systeme de Combat
+
+    public static void Augmentationstat(Character joueur)
+    {
+        Dice6 dice6 = new Dice6("");
+        int resultat = dice6.Random();
+        int choix = 0;
+        Console.WriteLine("Appuyer pour lance le dé...");
+        Console.ReadKey(true);
+        Console.Clear();
+        Console.WriteLine("Lancement de .");
+        Console.WriteLine("Lancement de ..");
+        Console.WriteLine("Lancement de ...");
+        Console.WriteLine("Lancement de .");
+        Console.WriteLine("Lancement de ..");
+        Console.WriteLine("Lancement de ...");
+        Console.Clear();
+        AffichageDe(resultat);
+        Console.WriteLine($"Vous avez obtenu{resultat}!!!");
+        Console.WriteLine("Choississez la statistique que vous voulez augmenter");
+        while (resultat != 0)
+        {
+            
+            try
+            {
+                string input = Console.ReadLine();
+
+                choix = int.Parse(input);
+                if (choix == 1)
+                {
+                    joueur.SetAttackDamage(joueur.GetAttackDamage() += 1);
                     resultat -= 1;
                     Console.WriteLine($"Augmentation d'attaque de 1");
                 }
                 else if (choix == 2)
                 {
-                    Joueur.Hp += 1;
+                    joueur.Hp += 1;
                     resultat -= 1;
                     Console.WriteLine($"Augmentation de HP de 1");
                 }
@@ -563,25 +459,44 @@ class Program
                 Console.ReadKey(true);
             }
         }
+        ;
+    }//Systeme Augmentation de stat
 
-        // Appliquer les dégâts à l'ennemi (en fonction de la défense du joueur)
-        int degatsSubis = degats - joueur.DEF;
-        if (degatsSubis < 0)
+    public static Character RandomEnnemi()
+    {
+        Random random = new Random();
+        Character ennemi = GetEnnemie(random.Next(1, 3).ToString());
+
+        return ennemi;
+    }//Recupérer ennemie random
+
+    public static void AffichageDe(int number)
+    {
+        if (number == 1) { 
+        Console.WriteLine("  .=***++++*+=++*++===+++++.\r\n *####**##########**#######:\r\n ##########################:\r\n #######################+##:\r\n #######################=##:\r\n ##########################:\r\n ##########=-+###########=#:\r\n #########+  :###########+#:\r\n ###########*#############*:\r\n #########################=:\r\n ##########################:\r\n ##########################:\r\n ########################=. \r\n");
+            //dé1
+        }
+        if (number == 2) { 
+            Console.WriteLine("  :+#*******+==+******+++++ \r\n.########################## \r\n:#########################* \r\n:####=-+##################- \r\n:###*  :*#################* \r\n:#####*##################*# \r\n:########################-# \r\n:########################+# \r\n:########################## \r\n:###############+--*####=## \r\n:###############=  =####+## \r\n:########################## \r\n.#######################*-  \r\n");
+        //dé2
+        }
+        if (number == 3) { 
+            Console.WriteLine("  .=********+==++++++++++++.\r\n +#########################.\r\n *########################*.\r\n *###############--+####+#=.\r\n *##############+  -####+##.\r\n *################*########.\r\n *#########-:=###########=#.\r\n *########*..-###########*#.\r\n *########################+.\r\n *###- :*###############=#=.\r\n *###-:-*###############*##.\r\n *#########################.\r\n");
+        //dé3
+        }
+        if (number == 4)
         {
-            degatsSubis = 0;  // Pas de dégâts si la défense du joueur est trop élevée
+            Console.WriteLine("  .=***++=+*+===++++===++++:\r\n *####***#########**#######-\r\n ##########################-\r\n ####+=+#########++*#######-\r\n ####   +#######=  :#######-\r\n #####**#########*+########-\r\n ########################=#-\r\n ########################+#-\r\n ##########################-\r\n ####=:=*#######*--+#######-\r\n ####. .*#######+  -#######-\r\n #################*########-\r\n ########################=: \r\n");
+            //dé4
+        }
+        if (number == 5) { 
+            Console.WriteLine("  -*#*+=-+********+--=***++.\r\n=################***#######:\r\n=#########################*:\r\n=###*==*########*=+*######=:\r\n=###-  -########:  -######*:\r\n=####**##########++########:\r\n=#########*==*###########=#:\r\n=#########-  -###########+#:\r\n=##########**##############:\r\n=###*==*########*=+*####*##:\r\n=###=  -########:  -####+*#:\r\n=####**##########*+########:\r\n=########################*- \r\n");
+        //dé5
+        }
+        if (number == 6) { 
+            Console.WriteLine("  :+****++************+++++.\r\n.#################**#######.\r\n.##########################.\r\n.####=-+########*==*####+##.\r\n.###*  .*#######-  =####+##.\r\n.#####*##########**########.\r\n.####--+########*==*#####=#.\r\n.###*. :*#######-  =#####*#.\r\n.#################*#######+.\r\n.###*-:=########+--*######=.\r\n.###*. :*#######=  =#######.\r\n.##########################.\r\n.#######################*-  \r\n");
+        //dé6
         }
 
-        return degatsSubis;
     }
-
 }
-
-
-
-
-
-
-
-
-
-

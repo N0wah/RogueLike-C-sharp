@@ -1,5 +1,7 @@
+.vs
 /TPRoguelike/bin/*
 /TPRoguelike/obj/*
+
 # Visual Studio
 .vs/
 
