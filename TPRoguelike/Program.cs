@@ -378,6 +378,16 @@ class Program
                 Console.ReadKey(true);
             }
 
+            // Si l'ennemi a perdu tous ses HP, il est vaincu
+            if (ennemi.Hp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                Console.ReadKey(true);
+                combatEnCours = false;
+                if (combatBoss < 7 ) Combat(joueur);
+            }
+
             if (combatBoss == 7 && ennemi.Hp <= 0)
             {
                 Console.Clear();
@@ -387,16 +397,6 @@ class Program
                 Console.WriteLine("L'heure du boss a sonnée....");
                 Console.ReadKey(true);
                 CombatBossFinal(joueur);
-            }
-
-            // Si l'ennemi a perdu tous ses HP, il est vaincu
-            if (ennemi.Hp <= 0)
-            {
-                Console.Clear();
-                Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
-                Console.ReadKey(true);
-                combatEnCours = false;
-                Combat(joueur);
             }
         }
     }
