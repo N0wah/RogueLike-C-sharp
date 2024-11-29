@@ -16,9 +16,8 @@ namespace TPCSharp
 
     class Dice6 : Dice
     {
-        public Dice6(string type) : base(type)
+        public Dice6(string type = "Dée 6") : base(type)
         {
-            Type = "Dée 6";
         }
 
         public override int Random()
@@ -30,9 +29,8 @@ namespace TPCSharp
 
     class Dice10 : Dice
     {
-        public Dice10(string type) : base(type)
+        public Dice10(string type = "Dée 10") : base(type)
         {
-            Type = "Dée 10";
         }
 
         public override int Random()
@@ -44,9 +42,8 @@ namespace TPCSharp
 
     class Dice20 : Dice
     {
-        public Dice20(string type) : base(type)
+        public Dice20(string type = "Dée 20") : base(type)
         {
-            Type = "Dée 20";
         }
 
         public override int Random()

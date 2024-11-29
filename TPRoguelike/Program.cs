@@ -1,5 +1,5 @@
 ﻿using System;
-using CharacterClass;
+using TPCSharp;
 using MySql.Data.MySqlClient;
 using System.Threading; // Nécessaire pour avoir un delai a l'affichage du texte
 
@@ -13,7 +13,7 @@ class Program
         Menu(joueur);
     }
 
-    static Character GetCharacter(string id)
+    public static Armes GetWeapon(string id)
     {
         string connectionString = "server=localhost;database=dbrogue;user=root;password=";
 
@@ -22,25 +22,64 @@ class Program
             try
             {
                 connection.Open();
-                Console.WriteLine("Connexion réussie à la base de données.");
+                var weaponsMap = new Dictionary<string, Func<MySqlDataReader, Armes>>
+                {
+                    {"1", reader => new Fist(reader.GetString("Name"), reader.GetInt32("Damage")) },
+                    {"2", reader => new CrossBow(reader.GetString("Name"), reader.GetInt32("Damage")) },
+                    {"3", reader => new Bow(reader.GetString("Name"), reader.GetInt32("Damage")) },
+                    {"4", reader => new Sword(reader.GetString("Name"), reader.GetInt32("Damage")) },
+                    {"5", reader => new Dague(reader.GetString("Name"), reader.GetInt32("Damage")) }
+                };
+
+                if (weaponsMap.ContainsKey(id))
+                {
+                    string query = $"SELECT * FROM weapons WHERE Id = {id};";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return weaponsMap[id](reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { }
+        }
+        return null;
+    }
+
+    public static Character GetCharacter(string id)
+    {
+        string connectionString = "server=localhost;database=dbrogue;user=root;password=";
+
+        using (var connection = new MySqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
 
                 var charactersMap = new Dictionary<string, Func<MySqlDataReader, Character>>
             {
                 { "1", reader => new Archer(
                     reader.GetString("Name"),
-                    100, // Money
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Critical_Chance")
+                    100,
+                    null,
+                    GetWeapon("1")
                 )},
-                { "2", reader => new Chevalier(
+                { "2", reader => new Guerrier(
                     reader.GetString("Name"),
-                    100, // Money
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Critical_Chance")
+                    100,
+                    null,
+                    GetWeapon("1")
                 )}
             };
 
@@ -112,7 +151,7 @@ class Program
         return null;
     }
 
-    public static Ennemie GetEnnemie(string id)
+    public static Character GetEnnemie(string id)
     {
         string connectionString = "server=localhost;database=dbrogue;user=root;password=";
 
@@ -123,39 +162,43 @@ class Program
                 connection.Open();
                 Console.WriteLine("Connexion réussie à la base de données.");
 
-                var ennemiesMap = new Dictionary<string, Func<MySqlDataReader, Ennemie>>
+                var ennemiesMap = new Dictionary<string, Func<MySqlDataReader, Character>>
             {
-                { "1", reader => new Gobelin(
+                { "3", reader => new Gobelin(
                     reader.GetString("Name"),
-                    "Gobelin",
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Gold_Value")
+                    reader.GetInt32("Gold_Value"),
+                    null,
+                    null
                 )},
                 { "2", reader => new Loup(
                     reader.GetString("Name"),
-                    "Loup",
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Gold_Value")
+                    reader.GetInt32("Gold_Value"),
+                    null,
+                    null
                 )},
-                { "3", reader => new Orc(
+                { "4", reader => new Orc(
                     reader.GetString("Name"),
-                    "Orc",
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Gold_Value")
+                    reader.GetInt32("Gold_Value"),
+                    null,
+                    null
                 )},
-                { "4", reader => new Boss(
+                { "1", reader => new Boss(
                     reader.GetString("Name"),
-                    "Boss",
                     reader.GetInt32("Health_Point"),
-                    reader.GetInt32("Defense_Point"),
+                    reader.GetInt32("Health_Point"),
                     reader.GetInt32("Attack_Point"),
-                    reader.GetInt32("Gold_Value")
+                    reader.GetInt32("Gold_Value"),
+                    null,
+                    null
                 )}
             };
 
@@ -169,7 +212,6 @@ class Program
                         {
                             if (reader.Read())
                             {
-                                Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 return ennemiesMap[id](reader);
                             }
                         }
