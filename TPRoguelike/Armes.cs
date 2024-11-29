@@ -1,32 +1,32 @@
 ﻿using System;
 
-abstract class Arme
+public abstract class Armes
 {
     public string NomArme { get; private set; }
-    public int Degats { get; protected set; }
-    public int CritChance { get; protected set; }
 
-    public Arme(string nomArme, int degats, int critChance)
+    public Armes(string nomArme, int weaponDamage)
     {
         NomArme = nomArme;
-        Degats = degats;
-        CritChance = critChance;
     }
 
-    public abstract void Attaque();
+    public abstract int GetWeaponDamage();
 }
 
-class Epee : Arme
+class Epee : Armes
 {
-    public Epee() : base("Épée", 50, 10) { }
-
-    public override void Attaque()
+    public int WeaponDamage { get; private set; }
+    public Epee(string name, int weaponDamage) : base("Épée", weaponDamage) 
     {
-        Console.WriteLine($"Vous attaquez avec {NomArme}, infligeant {Degats} dégâts !");
+        WeaponDamage = weaponDamage;
+    }
+
+    public override int GetWeaponDamage()
+    {
+        return WeaponDamage;
     }
 }
 
-class Arc : Arme
+class Arc : Armes
 {
     public Arc() : base("Arc", 30, 20) { }
 
@@ -36,7 +36,7 @@ class Arc : Arme
     }
 }
 
-class Dague : Arme
+class Dague : Armes
 {
     public Dague() : base("Dague", 20, 30) { }
 
@@ -46,7 +46,7 @@ class Dague : Arme
     }
 }
 
-class Poing : Arme
+class Poing : Armes
 {
     public Poing() : base("Poing", 10, 5) { }
 
@@ -56,7 +56,7 @@ class Poing : Arme
     }
 }
 
-class Arbalette : Arme
+class Arbalette : Armes
 {
     public Arbalette() : base("Arbalète", 40, 15) { }
 

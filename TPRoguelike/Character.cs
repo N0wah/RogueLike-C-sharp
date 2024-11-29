@@ -1,66 +1,174 @@
 ﻿using System;
 
-class Character
+namespace TPCSharp
 {
-    public string Name { get; private set; }
-    public int Money { get; private set; }
-    public int HP { get; protected set; }
-    public int DEF { get; protected set; }
-    public int AD { get; protected set; }
-    public int CritChance { get; protected set; }
-    public Arme _Arme { get; protected set; }
-
-    public Character(string name, int money)
+    public abstract class Character
     {
-        Name = name;
-        Money = money;
-        _Arme = new Poing();
-    }
+        public string Name { get; set; }
+        public int Hp { get; set; }
+        public int MaxHp { get; set; }
+        public int Money { get; set; }
+        public Objet Item { get; set; }
+        public Armes Weapon { get; set; }
 
-    public void EquipWeapon(Arme weapon)
-    {
-        _Arme = weapon;
-        Console.WriteLine($"{Name} a équipé l'arme : {weapon.NomArme}");
-    }
-
-    public void Attack()
-    {
-        _Arme.Attaque();
-    }
-    public virtual void SetHp(int hp)
-    {
-        HP = hp;
-    }
-
-    public virtual int GetHp()
-    {
-        return HP;
-    }
-}
-
-namespace CharacterClass
-{
-    class Archer : Character
-    {
-
-        public Archer(string name, int money, int hP, int dEF, int aD, int critChance) : base(name, money)
+        public Character(string name, int hp, int maxHp, int money, Objet item, Armes weapon)
         {
-            HP = hP;
-            DEF = dEF;
-            AD = aD;
-            CritChance = critChance;
+            Name = name;
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = item;
+            Weapon = weapon;
+        }
+
+        public void ResetHp()
+        {
+            Hp = MaxHp;
+        }
+
+        public void SetHp(int hp)
+        {
+            Hp = hp;
+            if (Hp > MaxHp)
+            {
+                Hp = MaxHp;
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Hp -= damage;
+            if (Hp < 0)
+            {
+                Hp = 0;
+            }
+        }
+
+        public void UseObject(Objet item)
+        {
+            item.Use();
+        }
+
+        public abstract void Attack(Character target);
+    }
+
+    public class Archer : Character
+    {
+        public int AttackDamage { get; set; }
+        public Archer(string name, int hp, int maxHp, int attackDamage, int money, Objet item, Armes weapon) : base(name, hp, maxHp, money, item, weapon)
+        {
+            AttackDamage = attackDamage;
+            Name = name;
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money ;
+            Item = item;
+            Weapon = weapon;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
         }
     }
 
-    class Chevalier : Character
+    public class Guerrier : Character
     {
-
-        public Chevalier(string name, int money, int hP, int dEF, int aD, int critChance) : base(name, money)
+        public int AttackDamage { get; set; }
+        public Guerrier(string name, int hp, int maxHp, int attackDamage, int money, Objet item,Armes weapon) : base(name, hp, maxHp, money, item, weapon)
         {
-            HP = hP;
-            DEF = dEF;
-            AD = aD;
-            CritChance = critChance;
+            AttackDamage = attackDamage;
+            Name = name;
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = item;
+            Weapon = weapon;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
+        }
+    }
+
+    public class Orc : Character
+    {
+        public int AttackDamage { get; set; }
+        public Orc(string name, int hp, int maxHp, int attackDamage, int money, Objet item, Armes weapon) : base(name, hp, maxHp, money, item, weapon)
+        {
+            AttackDamage = attackDamage;
+            Name = "Orc";
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = null;
+            Weapon = null;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
+        }
+    }
+
+    public class Loup : Character
+    {
+        public int AttackDamage { get; set; }
+        public Loup(string name, int hp, int maxHp, int attackDamage, int money, Objet item, Armes weapon) : base(name, hp, maxHp, money, item, weapon)
+        {
+            AttackDamage = attackDamage;
+            Name = "Loup";
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = null;
+            Weapon = null;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
+        }
+    }
+
+    public class Gobelin : Character
+    {
+        public int AttackDamage { get; set; }
+        public Gobelin(string name, int hp, int maxHp, int attackDamage, int money, Objet item, Armes weapon) : base(name, hp, maxHp, money, item, weapon)
+        {
+            AttackDamage = attackDamage;
+            Name = "Gobelin";
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = null;
+            Weapon = null;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
+        }
+    }
+
+    public class Boss : Character
+    {
+        public int AttackDamage { get; set; }
+        public Boss(string name, int hp, int maxHp, int attackDamage, int money, Objet item, Armes weapon) : base(name, hp, maxHp, money, item, weapon)
+        {
+            AttackDamage = attackDamage;
+            Name = "Boss";
+            Hp = hp;
+            MaxHp = maxHp;
+            Money = money;
+            Item = null;
+            Weapon = null;
+        }
+
+        public override void Attack(Character target)
+        {
+            target.TakeDamage(AttackDamage);
         }
     }
 }
