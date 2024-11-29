@@ -336,7 +336,6 @@ class Program
             Armes arme2 = GetWeapon("3");
             Armes arme3 = GetWeapon("4");
             Armes arme4 = GetWeapon("5");
-            joueur.Money = 250;
 
             Console.WriteLine($"1-{arme1.NomArme}({arme1.GetValue()}$) | 2-{arme2.NomArme}({arme2.GetValue()}$) " +
                 $"| 3-{arme3.NomArme}({arme3.GetValue()}$) | 4-{arme4.NomArme}({arme4.GetValue()}$)");
