@@ -378,10 +378,14 @@ class Program
                 Console.ReadKey(true);
             }
 
-            if (combatBoss == 7)
+            if (combatBoss == 7 && ennemi.Hp <= 0)
             {
                 Console.Clear();
+                Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                Console.ReadKey(true);
+                Console.Clear();
                 Console.WriteLine("L'heure du boss a sonnée....");
+                Console.ReadKey(true);
                 CombatBossFinal(joueur);
             }
 
