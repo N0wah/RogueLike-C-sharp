@@ -10,7 +10,7 @@ class Program
     {
         StartingGame();
         Explication();
-        MenuGame(CHoixPernnage());
+        MenuGame(ChoixPernnage());
     }
 
     public static Armes GetWeapon(string id)
@@ -465,7 +465,7 @@ class Program
     }//Recupérer ennemie random
 
 
-    public static Character CHoixPernnage()
+    public static Character ChoixPernnage()
     {
 
         Character archer = GetCharacter("1");// Archer
