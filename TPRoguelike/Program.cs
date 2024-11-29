@@ -11,7 +11,10 @@ class Program
         StartingGame();
         Explication();
         MenuGame(ChoixPernnage());
+        
     }
+
+    public static int combatBoss = 0;
 
     public static Armes GetWeapon(string id)
     {
@@ -320,6 +323,7 @@ class Program
 
     public static void Combat(Character joueur)
     {
+        combatBoss += 1;
         Augmentationstat(joueur);
         Console.Clear();
         Console.WriteLine($"Le combat commence ! Vous êtes face à un ennemi !\n");
@@ -340,6 +344,7 @@ class Program
             Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
             Console.SetCursorPosition(25, 1);
             Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
+            Console.WriteLine(combatBoss);
 
             Console.ReadKey(true);
 
@@ -362,6 +367,81 @@ class Program
                 Console.Clear();
                 Console.WriteLine("Vous avez perdu le combat. Game Over !\n");
                 joueur.ResetHp();
+                combatBoss = 0;
+                combatEnCours = false;
+            }
+
+            // Si le joueur a encore de la vie, continuer le combat
+            if (joueur.Hp > 0)
+            {
+                Console.WriteLine("Appuyez sur une touche pour continuer...");
+                Console.ReadKey(true);
+            }
+
+            if (combatBoss == 7)
+            {
+                Console.Clear();
+                Console.WriteLine("L'heure du boss a sonnée....");
+                CombatBossFinal(joueur);
+            }
+
+            // Si l'ennemi a perdu tous ses HP, il est vaincu
+            if (ennemi.Hp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                Console.ReadKey(true);
+                combatEnCours = false;
+                Combat(joueur);
+            }
+        }
+    }
+
+    public static void CombatBossFinal(Character joueur)
+    {
+        Augmentationstat(joueur);
+        Console.Clear();
+        Console.WriteLine($"Le combat commence ! Vous êtes face au BOSS !\n");
+
+        bool combatEnCours = true; //Afin de faire une boucle pour le jeu
+        Character ennemi = GetBoss();
+
+        // Boucle de combat
+        while (combatEnCours)
+        {
+
+            Console.Clear();
+            Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}");
+            Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
+
+            // Afficher les statistiques du ennemie
+            Console.SetCursorPosition(25, 0);
+            Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
+            Console.SetCursorPosition(25, 1);
+            Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
+
+            Console.ReadKey(true);
+
+            joueur.Attack(ennemi);
+            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
+
+            if (ennemi.Hp > 0)
+            {
+                ennemi.Attack(joueur);
+                Console.WriteLine($"L'ennemie vous attaque et vous inflige {ennemi.GetAttackDamage()} points de dégâts !\n");
+                Console.WriteLine("Continu...");
+                Console.ReadKey(true);
+            }
+
+
+            // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
+            if (joueur.Hp <= 0)
+            {
+
+                Console.Clear();
+                Console.WriteLine("Vous avez perdu le combat. Game Over !\n");
+                joueur.ResetHp();
+                combatBoss = 0;
                 combatEnCours = false;
             }
 
@@ -379,10 +459,10 @@ class Program
                 Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
                 Console.ReadKey(true);
                 combatEnCours = false;
-                Combat(joueur);
+                MenuGame(joueur);
             }
         }
-    } //Systeme de Combat
+    }
 
     public static void Augmentationstat(Character joueur)
     {
@@ -451,6 +531,12 @@ class Program
         Random random = new Random();
         Character ennemi = GetEnnemie(random.Next(2, 5).ToString());
 
+        return ennemi;
+    }//Recupérer ennemie random
+
+    public static Character GetBoss()
+    {
+        Character ennemi = GetEnnemie("1");
         return ennemi;
     }//Recupérer ennemie random
 
