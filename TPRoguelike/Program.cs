@@ -478,8 +478,7 @@ class Program
         }
     }
 
-
-    public static int EnnemiAttaque(Ennemie ennemi, Character joueur, Random random)
+    public int Augmentationstat(Character joueur)
     {
         int degats = ennemi.AD + random.Next(0, 10);  // Attaque de base avec variation
         bool critique = random.Next(0, 100) < ennemi.CritChance;  // Chance de critique de l'ennemi
@@ -487,8 +486,40 @@ class Program
         // Si critique, doubler les dégâts
         if (critique)
         {
-            degats *= 2;
-            TEXTE($"{ennemi.Name} inflige un coup critique !\n");
+            try
+            {
+                string input = Console.ReadLine();
+
+                choix = int.Parse(input);
+                if (choix == 1)
+                {
+                    joueur. += 1;
+                    resultat -= 1;
+                    Console.WriteLine($"Augmentation d'attaque de 1");
+                }
+                else if (choix == 2)
+                {
+                    Joueur.Hp += 1;
+                    resultat -= 1;
+                    Console.WriteLine($"Augmentation de HP de 1");
+                }
+                else
+                {
+                    Console.WriteLine("\nOption invalide. Veuillez entrer un chiffre entre 1 et 2.");
+                    Console.ReadKey(true);
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("\nErreur : Vous devez entrer un nombre valide (1 ou 2).");
+                Console.ReadKey(true);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"\nUne erreur inattendue s'est produite : {ex.Message}");
+                Console.ReadKey(true);
+            }
         }
 
         // Appliquer les dégâts à l'ennemi (en fonction de la défense du joueur)

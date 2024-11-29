@@ -44,12 +44,19 @@ namespace TPCSharp
             }
         }
 
+        public void EquipWeapon(Armes weapon)
+        {
+            Weapon = weapon;
+        }
+
         public void UseObject(Objet item)
         {
             item.Use();
         }
 
         public abstract void Attack(Character target);
+        public abstract int GetAttackDamage();
+        public abstract void SetAttackDamage(int damage);
     }
 
     public class Archer : Character
@@ -70,6 +77,9 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 
     public class Guerrier : Character
@@ -90,6 +100,9 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 
     public class Orc : Character
@@ -110,6 +123,9 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 
     public class Loup : Character
@@ -130,6 +146,9 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 
     public class Gobelin : Character
@@ -150,6 +169,9 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 
     public class Boss : Character
@@ -170,5 +192,8 @@ namespace TPCSharp
         {
             target.TakeDamage(AttackDamage);
         }
+
+        public override int GetAttackDamage() { return AttackDamage; }
+        public override void SetAttackDamage(int damage) { AttackDamage = damage; }
     }
 }
