@@ -8,7 +8,9 @@ class Program
 {
     public static void Main(string[] args)
     {
-        Augmentationstat(GetCharacter("1"));
+        StartingGame();
+        Explication();
+        MenuGame(CHoixPernnage());
     }
 
     public static Armes GetWeapon(string id)
@@ -462,33 +464,94 @@ class Program
         return ennemi;
     }//Recupérer ennemie random
 
+
+    public static Character CHoixPernnage()
+    {
+
+        Character archer = GetCharacter("1");// Archer
+        Character guerrier = GetCharacter("2"); // Chevalier
+
+
+
+        Console.Clear();
+        Console.WriteLine("**************************");
+        Console.WriteLine("*      Choix du héros    *");
+        Console.WriteLine("**************************\n");
+
+        Console.WriteLine($"1. {guerrier.Name}");
+        Console.WriteLine($"   - Points de vie : {guerrier.Hp}");
+        Console.WriteLine($"   - Attaque : {guerrier.GetAttackDamage()}\n");
+
+        Console.WriteLine($"2. {archer.Name}");
+        Console.WriteLine($"   - Points de vie : {archer.Hp}");
+        Console.WriteLine($"   - Attaque : {archer.GetAttackDamage()}\n");
+
+
+
+        Console.WriteLine("Choisissez votre personnage (1 pour Chevalier, 2 pour Archer) :");
+
+        Character selectedCharacter = null;
+
+        while (selectedCharacter == null)
+        {
+            string input = Console.ReadLine();
+            if (input == "1")
+            {
+                selectedCharacter = guerrier;
+                Console.WriteLine("\nVous avez choisi : Guerrier !");
+            }
+            else if (input == "2")
+            {
+                selectedCharacter = archer;
+                Console.WriteLine("\nVous avez choisi : Archer !");
+            }
+            else
+            {
+                Console.WriteLine("Choix invalide. Veuillez taper 1 ou 2.");
+            }
+        }
+
+        Console.WriteLine("\nAppuyez sur une touche pour continuer...");
+        Console.ReadKey(true);
+        return selectedCharacter;
+    }
     public static void AffichageDe(int number)
     {
-        if (number == 1) { 
-        Console.WriteLine("  .=***++++*+=++*++===+++++.\r\n *####**##########**#######:\r\n ##########################:\r\n #######################+##:\r\n #######################=##:\r\n ##########################:\r\n ##########=-+###########=#:\r\n #########+  :###########+#:\r\n ###########*#############*:\r\n #########################=:\r\n ##########################:\r\n ##########################:\r\n ########################=. \r\n");
+        if (number == 1)
+        {
+            Console.WriteLine("  .=***++++*+=++*++===+++++.\r\n *####**##########**#######:\r\n ##########################:\r\n #######################+##:\r\n #######################=##:\r\n ##########################:\r\n ##########=-+###########=#:\r\n #########+  :###########+#:\r\n ###########*#############*:\r\n #########################=:\r\n ##########################:\r\n ##########################:\r\n ########################=. \r\n");
             //dé1
         }
-        if (number == 2) { 
+        if (number == 2)
+        {
             Console.WriteLine("  :+#*******+==+******+++++ \r\n.########################## \r\n:#########################* \r\n:####=-+##################- \r\n:###*  :*#################* \r\n:#####*##################*# \r\n:########################-# \r\n:########################+# \r\n:########################## \r\n:###############+--*####=## \r\n:###############=  =####+## \r\n:########################## \r\n.#######################*-  \r\n");
-        //dé2
+            //dé2
         }
-        if (number == 3) { 
+        if (number == 3)
+        {
             Console.WriteLine("  .=********+==++++++++++++.\r\n +#########################.\r\n *########################*.\r\n *###############--+####+#=.\r\n *##############+  -####+##.\r\n *################*########.\r\n *#########-:=###########=#.\r\n *########*..-###########*#.\r\n *########################+.\r\n *###- :*###############=#=.\r\n *###-:-*###############*##.\r\n *#########################.\r\n");
-        //dé3
+            //dé3
         }
         if (number == 4)
         {
             Console.WriteLine("  .=***++=+*+===++++===++++:\r\n *####***#########**#######-\r\n ##########################-\r\n ####+=+#########++*#######-\r\n ####   +#######=  :#######-\r\n #####**#########*+########-\r\n ########################=#-\r\n ########################+#-\r\n ##########################-\r\n ####=:=*#######*--+#######-\r\n ####. .*#######+  -#######-\r\n #################*########-\r\n ########################=: \r\n");
             //dé4
         }
-        if (number == 5) { 
+        if (number == 5)
+        {
             Console.WriteLine("  -*#*+=-+********+--=***++.\r\n=################***#######:\r\n=#########################*:\r\n=###*==*########*=+*######=:\r\n=###-  -########:  -######*:\r\n=####**##########++########:\r\n=#########*==*###########=#:\r\n=#########-  -###########+#:\r\n=##########**##############:\r\n=###*==*########*=+*####*##:\r\n=###=  -########:  -####+*#:\r\n=####**##########*+########:\r\n=########################*- \r\n");
-        //dé5
+            //dé5
         }
-        if (number == 6) { 
+        if (number == 6)
+        {
             Console.WriteLine("  :+****++************+++++.\r\n.#################**#######.\r\n.##########################.\r\n.####=-+########*==*####+##.\r\n.###*  .*#######-  =####+##.\r\n.#####*##########**########.\r\n.####--+########*==*#####=#.\r\n.###*. :*#######-  =#####*#.\r\n.#################*#######+.\r\n.###*-:=########+--*######=.\r\n.###*. :*#######=  =#######.\r\n.##########################.\r\n.#######################*-  \r\n");
-        //dé6
+            //dé6
         }
 
     }
+
 }
+
+
+
+    
