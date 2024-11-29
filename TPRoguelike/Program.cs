@@ -6,11 +6,9 @@ using System.Reflection.PortableExecutable;
 
 class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        //StartingGame();
-        //  Explication();
-        // MenuGame(//mettre Character//);
+        Augmentationstat(GetCharacter("1"));
     }
 
     public static Armes GetWeapon(string id)
@@ -120,9 +118,6 @@ class Program
 
                 var objetsMap = new Dictionary<string, Func<int, Character, Objet>>
             {
-                { "1", (stats, chara) => new Dice6(stats, chara) },
-                { "2", (stats, chara) => new Dice10(stats, chara) },
-                { "3", (stats, chara) => new Dice20(stats, chara) },
                 { "4", (stats, chara) => new Potion(stats, chara) }
             };
 
@@ -225,12 +220,7 @@ class Program
         }
         return null;
     }
-
-
-    public static void LancerJeu()
-    {
-
-        Console.Clear(); // Efface l'écran pour un lancement propre
+ // Efface l'écran pour un lancement propre
     public static void StartingGame()
     {
         Console.Clear();
@@ -405,6 +395,7 @@ class Program
 
     public static void Augmentationstat(Character joueur)
     {
+        Console.Clear();
         Dice6 dice6 = new Dice6("");
         int resultat = dice6.Random();
         int choix = 0;
@@ -419,7 +410,7 @@ class Program
         Console.WriteLine("Lancement de ...");
         Console.Clear();
         AffichageDe(resultat);
-        Console.WriteLine($"Vous avez obtenu{resultat}!!!");
+        Console.WriteLine($"Vous avez obtenu {resultat}!!!");
         Console.WriteLine("Choississez la statistique que vous voulez augmenter");
         while (resultat != 0)
         {
@@ -431,7 +422,8 @@ class Program
                 choix = int.Parse(input);
                 if (choix == 1)
                 {
-                    joueur.SetAttackDamage(joueur.GetAttackDamage() += 1);
+                    int joueurDamage = joueur.GetAttackDamage();
+                    joueur.SetAttackDamage(joueurDamage += 1);
                     resultat -= 1;
                     Console.WriteLine($"Augmentation d'attaque de 1");
                 }
