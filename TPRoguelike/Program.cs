@@ -278,10 +278,10 @@ class Program
                 choix = int.Parse(input);
                 if (choix == 1)
                 {
-                    Character ennemie = RandomEnnemi();
+                    
                     Console.Clear();
                     Console.WriteLine("Vous avez choisi de commencer le combat !");
-                    Combat(Personnage, ennemie);
+                    Combat(Personnage);
                     Console.WriteLine("\nAppuyez sur une touche pour continuer...");
                     Console.ReadKey(true);
                 }
@@ -318,36 +318,21 @@ class Program
         }
     } //Menu de Joueur
 
-    public static void Combat(Character joueur, Character ennemi)
+    public static void Combat(Character joueur)
     {
+        Augmentationstat(joueur);
         Console.Clear();
         Console.WriteLine($"Le combat commence ! Vous êtes face à un ennemi !\n");
-        // Afficher les statistiques du joueur
-        Console.Clear();
-        Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
-        Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
-        // Console.WriteLine($"Défense : {joueur.DEF}\n");
-
-        // Afficher les statistiques du ennemie
-        Console.SetCursorPosition(25, 0);
-        Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
-        Console.SetCursorPosition(25, 1);
-        Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
-        //Console.SetCursorPosition(25, 2);
-        //Console.WriteLine($"Défense : {ennemi.DEF}\n");
-
-        
-
-        Console.WriteLine("Continu...");
-        Console.ReadKey(true);
 
         bool combatEnCours = true; //Afin de faire une boucle pour le jeu
+        Character ennemi = RandomEnnemi();
 
         // Boucle de combat
         while (combatEnCours)
         {
+            
             Console.Clear();
-            Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}\n");
+            Console.WriteLine($"HP du joueur : {joueur.Hp}/{joueur.MaxHp}");
             Console.WriteLine($"Attaque : {joueur.GetAttackDamage()}\n");
 
             // Afficher les statistiques du ennemie
@@ -356,16 +341,19 @@ class Program
             Console.SetCursorPosition(25, 1);
             Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
 
-            Console.WriteLine("Continu...");
             Console.ReadKey(true);
 
-            Augmentationstat(joueur);
-
-            //(Fonction) Joueur.Attaque(ennemie);
+            joueur.Attack(ennemi);
             Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
 
-            //(Fonction) ennemie.Attaque(joueur);
-            Console.WriteLine($"L'ennemie vous attaque et vous inflige {ennemi.GetAttackDamage()} points de dégâts !\n");
+            if (ennemi.Hp > 0) 
+            {
+                ennemi.Attack(joueur);
+                Console.WriteLine($"L'ennemie vous attaque et vous inflige {ennemi.GetAttackDamage()} points de dégâts !\n");
+                Console.WriteLine("Continu...");
+                Console.ReadKey(true);
+            }
+            
 
             // Vérifier si le joueur ou l'ennemi est mort (si le joueur perd tout ses HP)
             if (joueur.Hp <= 0)
@@ -389,8 +377,9 @@ class Program
             {
                 Console.Clear();
                 Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                Console.ReadKey(true);
                 combatEnCours = false;
-                Combat(joueur, ennemi);
+                Combat(joueur);
             }
         }
     } //Systeme de Combat
@@ -413,7 +402,7 @@ class Program
         Console.Clear();
         AffichageDe(resultat);
         Console.WriteLine($"Vous avez obtenu {resultat}!!!");
-        Console.WriteLine("Choississez la statistique que vous voulez augmenter");
+        Console.WriteLine("Choississez la statistique que vous voulez augmenter (1-Attaque | 2-Hp)");
         while (resultat != 0)
         {
             
@@ -431,6 +420,7 @@ class Program
                 }
                 else if (choix == 2)
                 {
+                    joueur.MaxHp += 1;
                     joueur.Hp += 1;
                     resultat -= 1;
                     Console.WriteLine($"Augmentation de HP de 1");
@@ -459,7 +449,7 @@ class Program
     public static Character RandomEnnemi()
     {
         Random random = new Random();
-        Character ennemi = GetEnnemie(random.Next(1, 3).ToString());
+        Character ennemi = GetEnnemie(random.Next(2, 5).ToString());
 
         return ennemi;
     }//Recupérer ennemie random
