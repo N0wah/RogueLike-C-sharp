@@ -285,8 +285,6 @@ class Program
                     Console.Clear();
                     Console.WriteLine("Vous avez choisi de commencer le combat !");
                     Combat(Personnage);
-                    Console.WriteLine("\nAppuyez sur une touche pour continuer...");
-                    Console.ReadKey(true);
                 }
                 else if (choix == 2)
                 {
@@ -400,12 +398,11 @@ class Program
             Console.WriteLine($"HP de l'ennemi ({ennemi.Name}) : {ennemi.Hp}/{ennemi.MaxHp}\n");
             Console.SetCursorPosition(25, 1);
             Console.WriteLine($"Attaque : {ennemi.GetAttackDamage()}\n");
-            Console.WriteLine(combatBoss);
 
             Console.ReadKey(true);
 
             joueur.Attack(ennemi);
-            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
+            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage() + (joueur.Weapon.GetWeaponDamage()/2)} points de dégâts !\n");
 
             if (ennemi.Hp > 0) 
             {
@@ -439,6 +436,7 @@ class Program
             {
                 Console.Clear();
                 Console.WriteLine($"Félicitations ! Vous avez vaincu {ennemi.Name}.\n");
+                joueur.Money += ennemi.Money;
                 Console.ReadKey(true);
                 combatEnCours = false;
                 if (combatBoss < 7 ) Combat(joueur);
@@ -483,7 +481,7 @@ class Program
             Console.ReadKey(true);
 
             joueur.Attack(ennemi);
-            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage()} points de dégâts !\n");
+            Console.WriteLine($"Vous attaquez {ennemi.Name} et infligez {joueur.GetAttackDamage() + (joueur.Weapon.GetWeaponDamage() / 2)} points de dégâts !\n");
 
             if (ennemi.Hp > 0)
             {

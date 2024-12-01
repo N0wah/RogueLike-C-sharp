@@ -75,7 +75,7 @@ namespace TPCSharp
 
         public override void Attack(Character target)
         {
-            target.TakeDamage(AttackDamage);
+            target.TakeDamage(AttackDamage + (Weapon.GetWeaponDamage()/2));
         }
 
         public override int GetAttackDamage() { return AttackDamage; }
@@ -98,7 +98,7 @@ namespace TPCSharp
 
         public override void Attack(Character target)
         {
-            target.TakeDamage(AttackDamage);
+            target.TakeDamage(AttackDamage + (Weapon.GetWeaponDamage() / 2));
         }
 
         public override int GetAttackDamage() { return AttackDamage; }
